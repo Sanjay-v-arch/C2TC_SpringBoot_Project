@@ -15,25 +15,31 @@ public class CertificateController {
         this.service = service;
     }
 
-    // Create a new certificate
+    // Create
     @PostMapping
     public Certificate create(@RequestBody Certificate certificate) {
         return service.addCertificate(certificate);
     }
 
-    // Get all certificates
+    // Read all
     @GetMapping
     public List<Certificate> getAllCertificates() {
         return service.getAllCertificates();
     }
 
-    // Get all certificates for a specific student
+    // Read by student
     @GetMapping("/student/{studentId}")
     public List<Certificate> getByStudent(@PathVariable Long studentId) {
         return service.getCertificatesByStudent(studentId);
     }
 
-    // Delete a certificate by ID
+    // Update
+    @PutMapping("/{id}")
+    public Certificate update(@PathVariable Long id, @RequestBody Certificate certificate) {
+        return service.updateCertificate(id, certificate);
+    }
+
+    // Delete
     @DeleteMapping("/{id}")
     public void delete(@PathVariable Long id) {
         service.deleteCertificate(id);

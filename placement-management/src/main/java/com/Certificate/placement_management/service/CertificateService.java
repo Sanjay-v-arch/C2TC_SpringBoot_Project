@@ -4,6 +4,7 @@ import com.Certificate.placement_management.entity.Certificate;
 import com.Certificate.placement_management.repository.CertificateRepository;
 import org.springframework.stereotype.Service;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class CertificateService {
@@ -24,12 +25,27 @@ public class CertificateService {
         return repository.findAll();
     }
 
-    // Get all certificates for a specific student
+    // Get certificates by student
     public List<Certificate> getCertificatesByStudent(Long studentId) {
         return repository.findByStudentId(studentId);
     }
 
-    // Delete a certificate by ID
+    // Update a certificate
+    public Certificate updateCertificate(Long id, Certificate updatedCertificate) {
+        return repository.findById(id).map(certificate -> {
+            certificate.setCertificateName(updatedCertificate.getCertificateName());
+            certificate.setIssueDate(updatedCertificate.getIssueDate());
+            certificate.setStudentId(updatedCertificate.getStudentId());
+            certificate.setIssuedBy(updatedCertificate.getIssuedBy());
+            certificate.setExpiryDate(updatedCertificate.getExpiryDate());
+            certificate.setGrade(updatedCertificate.getGrade());
+            certificate.setCertificateType(updatedCertificate.getCertificateType());
+            certificate.setRemarks(updatedCertificate.getRemarks());
+            return repository.save(certificate);
+        }).orElseThrow(() -> new RuntimeException("Certificate not found with id " + id));
+    }
+
+    // Delete a certificate
     public void deleteCertificate(Long id) {
         repository.deleteById(id);
     }
