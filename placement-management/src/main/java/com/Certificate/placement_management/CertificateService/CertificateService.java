@@ -1,4 +1,4 @@
-package com.Certificate.CertificateService;
+package com.Certificate.placement_management.CertificateService;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
